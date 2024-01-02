@@ -1,0 +1,103 @@
+flutter_native_splash:
+  # 생성
+  # dart run flutter_native_splash:create
+  # 삭제
+  # dart run flutter_native_splash:remove
+
+  # 배경색이나 배경 이미지 지정: 배경이미지는 그라데이션에 용이
+  color: "#42a5f5"
+  #background_image: "assets/background.png"
+
+  # 스플래시 이미지
+  # png file and should be sized for 4x pixel density.
+  image: assets/splash.png
+
+  # 스플래시 하단에 표기되는 브랜딩 이미지 표시
+  #branding: assets/dart.png
+  #branding_mode: bottom
+
+  # 각 모드별 추가 설정
+  #color_dark: "#042a49"
+  #background_image_dark: "assets/dark-background.png"
+  #image_dark: assets/splash-invert.png
+  #branding_dark: assets/dart_dark.png
+
+  # 안드로이드 12는 다르게 적용 필요. 하단 링크 참조 후, 따로 지정하자.
+  # https://developer.android.com/guide/topics/ui/splash-screen
+
+  android_12:
+    #image: assets/android12splash.png
+    #color: "#42a5f5"
+    #icon_background_color: "#111111"
+    #branding: assets/dart.png
+
+    # 각 모드별 설정
+    #image_dark: assets/android12splash-invert.png
+    #color_dark: "#042a49"
+    #icon_background_color_dark: "#eeeeee"
+
+  # 각 플랫폼별 스플래시 표시 여부
+  #android: false
+  #ios: false
+  #web: false
+
+  # 하단 파라미터는 각 플랫폼별 파라미터. 해당 파라미터 정의시 위에서 정의한 내용이 덮어써진다.
+  # color_android: "#42a5f5"
+  # color_dark_android: "#042a49"
+  # color_ios: "#42a5f5"
+  # color_dark_ios: "#042a49"
+  #color_web: "#42a5f5"
+  #color_dark_web: "#042a49"
+  #image_android: assets/splash-android.png
+  #image_dark_android: assets/splash-invert-android.png
+  #image_ios: assets/splash-ios.png
+  #image_dark_ios: assets/splash-invert-ios.png
+  #image_web: assets/splash-web.gif
+  #image_dark_web: assets/splash-invert-web.gif
+  #background_image_android: "assets/background-android.png"
+  #background_image_dark_android: "assets/dark-background-android.png"
+  #background_image_ios: "assets/background-ios.png"
+  #background_image_dark_ios: "assets/dark-background-ios.png"
+  #background_image_web: "assets/background-web.png"
+  #background_image_dark_web: "assets/dark-background-web.png"
+  #branding_android: assets/brand-android.png
+  #branding_dark_android: assets/dart_dark-android.png
+  #branding_ios: assets/brand-ios.png
+  #branding_dark_ios: assets/dart_dark-ios.png
+  #branding_web: assets/brand-web.gif
+  #branding_dark_web: assets/dart_dark-web.gif
+
+  # 아래는 각 플랫폼별 설정
+
+  # 안드로이드 그래비티 모드
+  # android_gravity can be one of the following Android Gravity (see
+  # https://developer.android.com/reference/android/view/Gravity): bottom, center,
+  # center_horizontal, center_vertical, clip_horizontal, clip_vertical, end, fill, fill_horizontal,
+  # fill_vertical, left, right, start, or top.
+  #android_gravity: center
+
+  # iOS 콘텐츠모드 (see
+  # https://developer.apple.com/documentation/uikit/uiview/contentmode): scaleToFill,
+  # scaleAspectFit, scaleAspectFill, center, top, bottom, left, right, topLeft, topRight,
+  # bottomLeft, or bottomRight.
+  #ios_content_mode: center
+  #
+  # 웹 모드: center, contain, stretch, and cover.
+  #web_image_mode: center
+
+  # The screen orientation can be set in Android with the android_screen_orientation parameter.
+  # Valid parameters can be found here:
+  # https://developer.android.com/guide/topics/manifest/activity-element#screen
+  #android_screen_orientation: sensorLandscape
+
+  # 상태표시줄 숨기려면 아래 설정 true 후, 아래 코드도 추가해야 함.
+  # NOTE: Unlike Android, iOS will not automatically show the notification bar when the app loads.
+  #       To show the notification bar, add the following code to your Flutter app:
+  #       WidgetsFlutterBinding.ensureInitialized();
+  #       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top], );
+  #fullscreen: true
+
+  # info-plist flavor 처럼 생산시 사용
+  #info_plist_files:
+  #  - 'ios/Runner/Info-Debug.plist'
+  #  - 'ios/Runner/Info-Release.plist'

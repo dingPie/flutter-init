@@ -48,9 +48,6 @@ dependencies:
   # 전역 상태관리 아키텍처 라이브러리
   provider: ^6.1.1
 
-  # Date Class 등 기본적인 Class 생성시 반복적으로 사용되는 코드를 줄이게 해줌
-  freezed: ^2.4.5
-
   # https 통신 및 parsing까지 해주는 라이브러리. axios와 비슷
   dio: ^5.3.4
 
@@ -71,7 +68,14 @@ dependencies:
   # 위젯 애니메이션 적용을 위한 라이브러리
   flutter_animate: ^4.3.0
 
+  json_annotation: ^4.8.0 # freezed 설치에 필요
+
 dev_dependencies:
+  # Date Class 등 기본적인 Class 생성시 반복적으로 사용되는 코드를 줄이게 해줌
+  build_runner: ^2.3.3
+  json_serializable: ^6.6.0
+  freezed: ^2.4.5
+
   flutter_test:
     sdk: flutter
 

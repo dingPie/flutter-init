@@ -1,5 +1,6 @@
+import 'package:flutter_init/constants/routes.dart';
 import 'package:flutter_init/providers/user.dart';
-import 'package:flutter_init/config/app_route_extension.dart';
+
 import 'package:flutter_init/screens/error_screen/error_screen.dart';
 import 'package:flutter_init/screens/home_screen/home_screen.dart';
 import 'package:flutter_init/screens/detail_screen/detail_screen.dart';
@@ -18,13 +19,13 @@ class AppRouter {
   late final _goRouter = GoRouter(
     routes: [
       GoRoute(
-        path: ROUTE.home.path,
-        name: ROUTE.home.name,
+        path: ROUTES.home.path,
+        name: ROUTES.home.name,
         builder: (context, state) => const HomeScreen(),
         routes: [
           GoRoute(
-            path: ROUTE.detail.path,
-            name: ROUTE.detail.name,
+            path: ROUTES.detail.path,
+            name: ROUTES.detail.name,
             builder: (context, state) {
               return DetailScreen(
                 goRouterState: state,
@@ -34,8 +35,8 @@ class AppRouter {
         ],
       ),
       GoRoute(
-        path: ROUTE.myPage.path,
-        name: ROUTE.myPage.name,
+        path: ROUTES.my.path,
+        name: ROUTES.my.name,
         builder: (context, state) => const MyPageScreen(),
       ),
     ],
@@ -44,9 +45,10 @@ class AppRouter {
     ),
     redirect: (context, state) {
       String firstPath =
-          state.uri.pathSegments.isNotEmpty ? state.uri.pathSegments[0] : '';
+          state.uri.pathSegments.isNotEmpty ? "${state.uri}" : '';
+
       // P_TODO: auth / unAuth 에 대한 규칙 세워야 함.
-      if (firstPath == 'myPage' && !user!.isLogin) {
+      if (firstPath == ROUTES.my.path && !user!.isLogin) {
         print('auth guard!');
         return '/';
       }
@@ -55,6 +57,6 @@ class AppRouter {
     }, // P_TODO: redirect 설정할 수 있음.
     // P_MEMO Provider로 제공받는 user 전역 상태를 보고있음. 다른 appState 같은걸 활용할 수 있다.
     refreshListenable: user,
-    initialLocation: ROUTE.home.path,
+    initialLocation: ROUTES.home.path,
   );
 }

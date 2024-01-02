@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_init/config/build_context_extention.dart';
-import 'package:flutter_init/config/app_route_extension.dart';
+import 'package:flutter_init/config/build_context_extension.dart';
+import 'package:flutter_init/constants/routes.dart';
+
 import 'package:go_router/go_router.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class ErrorScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: context.colors.gray[200],
         title: Text(
-          ROUTE.error.name,
+          ROUTES.error.name,
         ),
       ),
       body: Center(

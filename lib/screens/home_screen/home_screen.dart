@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_init/apis/dio.dart';
-import 'package:flutter_init/config/build_context_extention.dart';
+import 'package:flutter_init/config/build_context_extension.dart';
+import 'package:flutter_init/constants/routes.dart';
+
+import 'package:flutter_init/models/person/person.dart';
+import 'package:flutter_init/models/none_freeze_person.dart';
 
 import 'package:flutter_init/providers/user.dart';
-import 'package:flutter_init/config/app_route_extension.dart';
 import 'package:flutter_init/theme/app_theme.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +22,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeMode = context.read<AppTheme>().themeMode;
     var user = context.watch<User>();
+    var dio = DioIn().dio;
 
     void toggleThemeMode() {
       // read는 변경사항을 수신하진 않지만 값을 반환한고 (set 가능)
@@ -31,6 +35,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     void onPressedRouteButton(String path) {
+      print('test $path');
       context.push(Uri(
         path: path,
         // P_MEMO: 두 값이 엄연히 다르다.
@@ -45,11 +50,6 @@ class HomeScreen extends StatelessWidget {
     void onPressLogout() => user.logout();
 
     void apiTest() async {
-      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // await prefs.setString(ConstKey.token, '테스트 문구입니다.');
-
-      var dio = DioIn().dio;
-
       try {
         var result = await dio.get('/today-test');
         print('결과 확인! ${result.toString()}');
@@ -58,11 +58,28 @@ class HomeScreen extends StatelessWidget {
       }
     }
 
+    void freezeTest() {
+      Person person1 = Person(id: 1, name: 'Pie', age: 29);
+      Person person2 = Person.fromJson({'id': 1, 'name': 'Pie', 'age': 29});
+      NoneFreezePerson nfPerson1 =
+          NoneFreezePerson(id: 1, name: 'Pie', age: 29);
+      NoneFreezePerson nfPerson2 =
+          NoneFreezePerson.fromJson({'id': 1, 'name': 'Pie', 'age': 29});
+
+      print('person1: $person1');
+      print('person2 string: ${person2.toString()}');
+      print('person1 == person2: ${person1 == person2}');
+
+      print('nfPerson1: $nfPerson1');
+      print('nfPerson2 string: ${nfPerson2.toString()}');
+      print('nfPerson1 == nfPerson2: ${nfPerson1 == nfPerson2}');
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.colors.gray[200],
         title: Text(
-          ROUTE.home.title,
+          ROUTES.home.name,
         ),
       ),
       body: Center(
@@ -89,47 +106,69 @@ class HomeScreen extends StatelessWidget {
                       width: 12,
                     ),
                     ElevatedButton(
-                      onPressed: () => onPressedRouteButton(ROUTE.myPage.path),
-                      child: const Text('MYPAGE'),
+                      onPressed: () => onPressedRouteButton(ROUTES.my.path),
+                      child: const Text('MY PAGE'),
                     ),
                   ],
                 ),
                 const SizedBox(
                   height: 12,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  // P_MEMO: 하위 컨테이너들이 width 100%라 여기서 조정이 안먹음
                   children: [
-                    GestureDetector(
-                      onTap: apiTest,
-                      child: Text(
-                        'API 호출 테스트     ',
-                        style: context.textStyle.body1.copyWith(
-                          decoration: TextDecoration.underline,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: apiTest,
+                          child: Text(
+                            'API 호출 테스트',
+                            style: context.textStyle.body1.copyWith(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: onPressLogin,
-                      child: Text(
-                        '임시 로그인',
-                        style: context.textStyle.body1.copyWith(
-                          decoration: TextDecoration.underline,
+                        const SizedBox(
+                          width: 12,
                         ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    GestureDetector(
-                      onTap: onPressLogout,
-                      child: Text(
-                        '로그아웃',
-                        style: context.textStyle.body1.copyWith(
-                          decoration: TextDecoration.underline,
+                        GestureDetector(
+                          onTap: freezeTest,
+                          child: Text(
+                            'Freeze 생성 테스트',
+                            style: context.textStyle.body1.copyWith(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: onPressLogin,
+                          child: Text(
+                            '임시 로그인',
+                            style: context.textStyle.body1.copyWith(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        GestureDetector(
+                          onTap: onPressLogout,
+                          child: Text(
+                            '로그아웃',
+                            style: context.textStyle.body1.copyWith(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ],
